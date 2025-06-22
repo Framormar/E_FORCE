@@ -1,0 +1,30 @@
+LAMMPS (29 Aug 2024 - Update 3)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/src/comm.cpp:99)
+  using 1 OpenMP thread(s) per MPI task
+units metal
+atom_style atomic
+boundary p p p
+variable a0 equal 2.855
+lattice bcc ${a0}
+lattice bcc 2.855
+Lattice spacing in x,y,z = 2.855 2.855 2.855
+region box block 0 20 0 20 0 20 units lattice
+create_box 1 box
+Created orthogonal box = (0 0 0) to (57.1 57.1 57.1)
+  1 by 1 by 1 MPI processor grid
+create_atoms 1 box
+Created 16000 atoms
+  using lattice units in orthogonal box = (0 0 0) to (57.1 57.1 57.1)
+  create_atoms CPU = 0.003 seconds
+mass 1 55.845
+pair_style eam/alloy
+pair_coeff * * potentials/potentials/Fe_mm.eam.fs Fe
+Reading eam/alloy potential file potentials/potentials/Fe_mm.eam.fs with DATE: 2007-06-11
+neighbor 2.0 bin
+neigh_modify delay 0 every 1 check yes
+timestep 0.001
+thermo_style custom step temp press pe ke vol enthalpy
+thermo 100
+variable etot equal pe+ke
+variable vp equal press*vol
+variable H equal v_etot+v_vp
